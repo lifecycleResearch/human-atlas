@@ -1,9 +1,12 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.grea.humanatlas',
-  appName: 'Human Atlas',
-  webDir: 'dist'
+  appId: 'com.grea.greasanatomy',
+  appName: "GREA's Anatomy",
+  webDir: 'dist',
+  server: {
+    url: 'https://aed0fd62.human-atlas-temp.pages.dev'
+  }
 };
 
 export default config;
