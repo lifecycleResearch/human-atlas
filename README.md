@@ -1,8 +1,8 @@
-# Human Atlas
+# GREA's Anatomy
 
 An interactive 3D anatomy explorer built with React, Three.js, and shadcn/ui. Take the BodyParts3D adult male reference apart into **2,234 individually selectable meshes**, explore **15 anatomical systems**, and search **3,432 named concepts**.
 
-**[Explore the live demo](https://human-atlas-seven.vercel.app)**
+**[Explore the live demo](https://grea-anatomy.pages.dev)**
 
 ## Explore
 
@@ -12,6 +12,7 @@ An interactive 3D anatomy explorer built with React, Three.js, and shadcn/ui. Ta
 - Search anatomical names and source identifiers.
 - Isolate a selected structure and read its details.
 - Use compact controls and detail panels on mobile.
+- **Ask the expert** — a free in-app explainer that knows the app and the anatomy.
 
 ## Run locally
 
@@ -23,6 +24,35 @@ npm run dev
 ```
 
 Open http://localhost:3016. To build the static site, run `npm run build`; the output is in `dist/`.
+
+## Mobile apps
+
+The app ships as a Capacitor iOS and Android app that loads the live site from Cloudflare Pages:
+
+- **iOS**: `ios/App/App.xcodeproj`, target `GREAsAnatomy`, bundle ID `com.grea.greasanatomy`
+- **Android**: `android/`, application ID `com.grea.greasanatomy`
+
+Both platforms load `https://human-atlas-temp.pages.dev` as the web view source.
+
+### iOS
+
+```sh
+npx cap sync ios
+# Open ios/App/App.xcodeproj in Xcode, select a simulator, and build/run.
+xcodebuild -project ios/App/App.xcodeproj -scheme GREAsAnatomy \
+  -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 17' build
+```
+
+### Android
+
+Requires the Android SDK. Place it at `$ANDROID_HOME` (or set `local.properties`), then:
+
+```sh
+npx cap sync android
+cd android && ./gradlew build
+```
+
+CI (GitHub Actions) can build the Android APK/AAB without a local SDK — see `.github/workflows/android.yml`.
 
 ## Validate
 
@@ -55,7 +85,15 @@ The repository includes browser-ready geometry. Rebuilding it is optional: obtai
 
 ## Deploy
 
-Import this repository into Vercel as a Vite project. The included `vercel.json` configures `npm ci`, `npm run build`, and the `dist` output directory. It can also be served by a static host.
+The web app is deployed to Cloudflare Pages via `wrangler`:
+
+```sh
+npx wrangler pages deploy dist --project-name grea-anatomy
+npx wrangler pages deploy dist --project-name human-atlas-temp
+```
+
+- `grea-anatomy.pages.dev` — production project
+- `human-atlas-temp.pages.dev` — production project (what the iOS/Android apps load)
 
 ## License
 
