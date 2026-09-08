@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: "GREA's Anatomy",
   webDir: 'dist',
   server: {
-    url: 'https://aed0fd62.human-atlas-temp.pages.dev'
+    url: 'https://human-atlas-temp.pages.dev'
   }
 };
 
